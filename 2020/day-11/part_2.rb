@@ -75,7 +75,7 @@ def fill_seats(seat_matrix)
           end
         end
       end
-      puts "adjacent seats: #{adjacent_seats}"
+      # puts "adjacent seats: #{adjacent_seats}"
       if seat == "."
         new_seat_matrix[i] += "."
       elsif seat == "L"
@@ -99,14 +99,16 @@ def fill_seats(seat_matrix)
 end
 
 def get_final_occupied_seat_count
-  # seat_matrix = IO.readlines("input.txt")
-  seat_matrix = TEST_INPUT
+  seat_matrix = IO.readlines('input.txt')
+  # seat_matrix = TEST_INPUT
   seats_changed = true
-  # while seats_changed == true do
-  3.times do
+  while seats_changed == true do
+    puts "seat matrix:"
+    puts seat_matrix
+  # 3.times do
     updated_seat_map = fill_seats(seat_matrix)
     seat_matrix = updated_seat_map[0]
-    seats_changed = updated_seat_map[1]
+    seats_changed = !!updated_seat_map[1]
   end
   return seat_matrix.flatten.join("").count("#")
 end
