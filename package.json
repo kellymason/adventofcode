@@ -1,0 +1,19 @@
+{
+  "name": "kellymason-adventofcode",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "solve": "node ./${YEAR}/day${DAY}/part${PART}.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kellymason/adventofcode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kellymason/adventofcode/issues"
+  },
+  "homepage": "https://github.com/kellymason/adventofcode#readme"
+}
