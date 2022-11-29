@@ -1,6 +1,6 @@
 TEST_INPUT = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
 def get_input
-  steps = IO.readlines("input.txt").map(&:to_i)
+  steps = IO.readlines("2021/day1/input.txt").map(&:to_i)
   # steps = TEST_INPUT
 end
 
