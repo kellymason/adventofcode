@@ -8,3 +8,7 @@ export function readFile(filePath) {
 export function formatInputAsNumbers(input) {
   return input.split('\n').map(Number);
 };
+
+export function formatInputAsArrayOfTupleChars(input) {
+  return input.split('\n').map((line) => { return [line[0], line[2]] });
+}
