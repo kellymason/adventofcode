@@ -8,7 +8,7 @@ function solve() {
   console.log(`Solving year ${YEAR} day ${DAY} part ${PART}`)
   const input = readFile(inputFilePath);
   const answer = "TODO";
-  console.log(input);
+  console.log(input, answer);
 }
 
 solve();

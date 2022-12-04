@@ -4,6 +4,9 @@
   "description": "",
   "type": "module",
   "scripts": {
+    "make-part-files": "touch ./${YEAR}/day${DAY}/part1.js ./${YEAR}/day${DAY}/part2.js && cp ./boilerplate.js ./${YEAR}/day${DAY}/part1.js && cp ./boilerplate.js ./${YEAR}/day${DAY}/part2.js",
+    "make-input-files": "touch ./${YEAR}/day${DAY}/input.txt ./${YEAR}/day${DAY}/test-input.txt",
+    "make-next-day": "DAY=$((DAY+1)) && mkdir ./${YEAR}/day${DAY} && npm run make-parts && npm run make-input-files",
     "solve": "node ./${YEAR}/day${DAY}/part${PART}.js"
   },
   "repository": {
