@@ -2,7 +2,7 @@ import { readFile, formatInputAsNumbers } from "../../js-helpers.js";
 const YEAR = process.env["YEAR"]
 const DAY = process.env["DAY"]
 const PART = process.env["PART"]
-const inputFilePath = `./${YEAR}/day${DAY}/input.txt`
+const inputFilePath = `./${YEAR}/day${DAY}/test-input.txt`
 
 function solve() {
   console.log(`Solving year ${YEAR} day ${DAY} part ${PART}`)
