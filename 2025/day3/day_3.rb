@@ -8,7 +8,7 @@ TEST_INPUT = [
 # Read test input
 # Save as an array of instruction strings
 def get_input
-  ARGV[1] ? TEST_INPUT : File.readlines("input.txt", chomp: true)
+  ARGV[1] == "test" ? TEST_INPUT : File.readlines("input.txt", chomp: true)
 end
 
 # Find the highest int that occurs prior to the last number (this will represent the 10's place)
@@ -20,18 +20,13 @@ def part_1(input)
   input.each do |bank|
     highest_digit = bank.chars.max
     index_of_highest_digit = bank.index(highest_digit)
-    puts "highest_digit: #{highest_digit}"
-    puts "index of highest digit: #{index_of_highest_digit}"
     if index_of_highest_digit == bank.length - 1 # our highest digit is the last one, so search before it
       next_highest_digit = bank.chars[0...-1].max
-      puts "nexthighest_digit from if case: #{next_highest_digit}" 
       largest_bank_joltage = (next_highest_digit + highest_digit).to_i
     else # default case, only look at ints appearing after the highest digit
       next_highest_digit = bank.chars[(index_of_highest_digit+1)..].max
-      puts "next highest digit from else case: #{next_highest_digit}"
       largest_bank_joltage = (highest_digit + next_highest_digit).to_i
     end
-    puts "adding #{largest_bank_joltage}"
     total_joltage += largest_bank_joltage
   end
   puts total_joltage

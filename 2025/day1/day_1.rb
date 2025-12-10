@@ -14,21 +14,13 @@ TEST_INPUT = [
 # Read test input
 # Save as an array of instruction strings
 def get_input
-  ARGV[1] ? TEST_INPUT : File.readlines("input.txt", chomp: true)
+  ARGV[1] == "test" ? TEST_INPUT : File.readlines("input.txt", chomp: true)
 end
 
-# Take in a string containing "L" or "R" and a number
-# if the first char is "L", return the negated number 
-# if the first char is "R", return the number 
-def follow_instruction(initial_position, instruction)
-  raw_change = instruction.slice!(1,50).to_i
-  if instruction[0] == "L"
-    # puts "subtracting #{raw_change}"
-    initial_position - raw_change
-  else
-    # puts "adding #{raw_change}"
-    initial_position + raw_change
-  end
+# Part 1 helper - part 2 has an extra step that complicates things
+def get_new_position(current_position, instruction)
+  change_magnitude = instruction[1..].to_i
+  instruction[0] == "L" ? current_position - change_magnitude : current_position + change_magnitude
 end
 
 # Part 1 logic
@@ -36,8 +28,7 @@ def count_zero_positions(instructions)
     zero_counter = 0 # increment each time the dial reads 0 after a turn
     current_position = 50 # starts at 50. Can be 0-99, inclusive
     instructions.each do |instruction|
-    # puts "instruction: #{instruction[0]}, #{instruction.slice!(1,50).to_i}"
-    instruction += follow_instruction(instruction)
+    current_position = get_new_position(current_position, instruction)
     while current_position > 99
       current_position -= 100
     end
@@ -50,6 +41,7 @@ def count_zero_positions(instructions)
   zero_counter
 end
 
+# Part 2 helper
 def passed_or_landed_on_zero?(current_position, new_position)
   current_position != 0 && (new_position <= 0 || new_position >= 100)
 end
@@ -60,10 +52,9 @@ def count_zero_passes(instructions)
   current_position = 50 # starts at 50. Can be 0-99, inclusive
   instructions.each do |instruction|
     change_magnitude = instruction[1..].to_i
-    # full_rotations = change_magnitude / 100
-    # change_magnitude = change_magnitude % 100
     full_rotations, change_magnitude = change_magnitude.divmod(100)
     new_position = instruction[0] == "L" ? current_position - change_magnitude : current_position + change_magnitude
+    # Add to the counter for each time we passed or landed on zero, or each time the dial moved 100 places.
     zero_counter += 1 if passed_or_landed_on_zero?(current_position, new_position)
     zero_counter += full_rotations
     current_position = new_position % 100
@@ -71,10 +62,15 @@ def count_zero_passes(instructions)
   zero_counter
 end
 
-
 def solve(part)
   instructions = get_input
-  zero_counter = part == 1 ? count_zero_positions(instructions) : count_zero_passes(instructions)
+  if part == "1"
+    zero_counter = count_zero_positions(instructions)
+  elsif part == "2"
+    zero_counter = count_zero_passes(instructions)
+  else
+    puts "oops! Pass in 1 or 2 to indicate which part to solve"
+  end
   puts "zeros: #{zero_counter}"
 end
 
